@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial de Git &amp; GitHub — Guía de referencia diaria · AI Ecosystem</title>
+<meta name="description" content="Guía práctica de Git y GitHub: crear repos, clonar de forma segura, commits, tipos de rama y el flujo de Pull Request a main.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230B2540%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%23E8A33D%22 font-family=%22sans-serif%22>AI</text></svg>">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">AI</span>
+      AI Ecosystem <span style="color:#E8A33D;">/</span> SDLC
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="../about.html">Sobre mí</a></li>
+      <li><a href="../sdlc.html">SDLC</a></li>
+      <li><a href="../tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="../tutorials.html" aria-current="page">Tutoriales</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="eyebrow">Tutorial · Fundamentos</div>
+      <h1>Git &amp; GitHub — Guía de referencia diaria</h1>
+      <p class="lead">Del primer <code style="background:rgba(255,255,255,0.12); border-color:transparent; color:#fff;">git init</code> a un Pull Request aprobado en <code style="background:rgba(255,255,255,0.12); border-color:transparent; color:#fff;">main</code>, con las prácticas de seguridad que sigo en el día a día.</p>
+    </div>
+  </div>
+
+  <div class="container-narrow">
+    <div class="meta-row" style="margin-top:32px;">
+      <span class="tag pm">Fundamentos</span>
+      <span class="tag dev">Git</span>
+      <span class="tag dev">GitHub</span>
+      <span class="tag dev">VS Code</span>
+    </div>
+
+    <nav class="toc" aria-label="Tabla de contenido">
+      <h2>En esta guía</h2>
+      <ol>
+        <li><a href="#crear-repo">Crear un nuevo repositorio en GitHub</a></li>
+        <li><a href="#clonar-seguro">Clonar un repositorio de forma segura desde VS Code</a></li>
+        <li><a href="#commit-seguro">Hacer un commit seguro desde VS Code</a></li>
+        <li><a href="#tipos-rama">Tipos de ramas en GitHub</a></li>
+        <li><a href="#manejar-ramas">Cómo manejar las ramas mientras editas código</a></li>
+        <li><a href="#publicar-main">Cuándo y cómo publicar código a main/master</a></li>
+        <li><a href="#resumen-comandos">Resumen de comandos más usados</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <div class="tut-section" id="crear-repo">
+      <h2><span class="num">1</span>Crear un nuevo repositorio en GitHub</h2>
+
+      <h3>Opción A — Desde GitHub.com (repo remoto primero)</h3>
+      <ol>
+        <li>Entra a <code>github.com</code> → botón <b>New repository</b>.</li>
+        <li>Define nombre, visibilidad (Public/Private) y marca <b>Add a README</b>.</li>
+        <li>Agrega un <code>.gitignore</code> según el lenguaje (Node, Python, etc.) — evita subir <code>node_modules</code>, <code>.env</code>, archivos de build.</li>
+        <li>Clona el repo a tu máquina (ver sección 2).</li>
+      </ol>
+
+      <h3>Opción B — Desde un proyecto local ya existente</h3>
+      <pre><code>git init
+git add .
+git commit -m "chore: initial commit"
+git branch -M main
+git remote add origin https://github.com/usuario/nombre-repo.git
+git push -u origin main</code></pre>
+
+      <div class="callout good">
+        <span class="callout-icon">✅</span>
+        <div>
+          <b>Buenas prácticas</b>
+          <ul>
+            <li>Usa <code>main</code> como nombre de rama principal (estándar actual, reemplaza a <code>master</code>).</li>
+            <li>Crea el <code>.gitignore</code> antes del primer commit para no subir archivos sensibles.</li>
+            <li>Nunca subas credenciales, <code>.env</code>, tokens o llaves — usa variables de entorno o GitHub Secrets.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="tut-section" id="clonar-seguro">
+      <h2><span class="num">2</span>Clonar un repositorio de forma segura desde VS Code</h2>
+      <p><b>Recomendado:</b> autenticación SSH (más segura que HTTPS con contraseña).</p>
+
+      <h3>1. Genera una llave SSH si no tienes una</h3>
+      <pre><code>ssh-keygen -t ed25519 -C "tu_email@ejemplo.com"</code></pre>
+
+      <h3>2. Copia la llave pública y agrégala en GitHub</h3>
+      <p>GitHub → Settings → SSH and GPG keys → New SSH key.</p>
+      <pre><code>cat ~/.ssh/id_ed25519.pub</code></pre>
+
+      <h3>3. Verifica la conexión</h3>
+      <pre><code>ssh -T git@github.com</code></pre>
+
+      <h3>Clonar desde VS Code</h3>
+      <ol>
+        <li><code>Ctrl/Cmd + Shift + P</code> → <b>Git: Clone</b>.</li>
+        <li>Pega la URL en formato SSH: <code>git@github.com:usuario/repo.git</code>.</li>
+        <li>Elige la carpeta local destino.</li>
+        <li>VS Code te pregunta si quieres abrir el repo → <b>Open</b>.</li>
+      </ol>
+
+      <div class="callout good">
+        <span class="callout-icon">✅</span>
+        <div>
+          <b>Buenas prácticas</b>
+          <ul>
+            <li>Usa SSH en vez de HTTPS + contraseña (evita reautenticarte y es más seguro).</li>
+            <li>Si usas HTTPS, autentícate con un token de acceso personal (PAT), nunca con tu contraseña de cuenta (GitHub ya no lo permite).</li>
+            <li>Revisa siempre la URL del repo antes de clonar (evita repos maliciosos con nombres parecidos — typosquatting).</li>
+            <li>Activa 2FA en tu cuenta de GitHub.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="tut-section" id="commit-seguro">
+      <h2><span class="num">3</span>Hacer un commit seguro desde VS Code</h2>
+
+      <h3>Flujo recomendado</h3>
+      <ol>
+        <li>Panel <b>Source Control</b> (<code>Ctrl/Cmd + Shift + G</code>).</li>
+        <li>Revisa el diff de cada archivo modificado antes de hacer stage (clic en el archivo).</li>
+        <li>Haz stage solo de los archivos relevantes al cambio (no "stage all" a ciegas).</li>
+        <li>Escribe un mensaje de commit siguiendo <b>Conventional Commits</b>:</li>
+      </ol>
+      <pre><code>feat: agrega validación de CPT code en scheduler
+fix: corrige timeout en llamada a Okta SSO
+docs: actualiza README con pasos de instalación
+refactor: simplifica lógica de routing de citas</code></pre>
+      <ol start="5">
+        <li>Commit → <code>Ctrl/Cmd + Enter</code> o el botón ✔.</li>
+      </ol>
+
+      <h3>Desde terminal (equivalente)</h3>
+      <pre><code>git status
+git diff
+git add archivo1.js archivo2.js
+git commit -m "feat: descripción clara del cambio"</code></pre>
+
+      <div class="callout good">
+        <span class="callout-icon">✅</span>
+        <div>
+          <b>Buenas prácticas</b>
+          <ul>
+            <li>Nunca hagas <code>git add .</code> sin revisar antes qué se incluye (riesgo de subir <code>.env</code>, logs, credenciales).</li>
+            <li>Commits pequeños y atómicos (un propósito por commit) — facilita revertir si algo falla.</li>
+            <li>Mensajes descriptivos, no "fix" o "cambios".</li>
+            <li>Antes de hacer push, trae los cambios del remoto:</li>
+          </ul>
+          <pre style="margin-top:10px; background:#0F4A3E1a;"><code>git pull --rebase origin main</code></pre>
+          <ul>
+            <li>Instala la extensión <b>GitLens</b> en VS Code para ver historial y autoría línea por línea.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="tut-section" id="tipos-rama">
+      <h2><span class="num">4</span>Tipos de ramas en GitHub</h2>
+
+      <div style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead>
+            <tr><th>Tipo de rama</th><th>Propósito</th><th>Ejemplo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>main</code> / <code>master</code></td><td>Código en producción, siempre estable y desplegable</td><td><code>main</code></td></tr>
+            <tr><td><code>develop</code> <span class="text-sm">(opcional, según flujo)</span></td><td>Integración de features antes de pasar a producción</td><td><code>develop</code></td></tr>
+            <tr><td><code>feature/*</code></td><td>Desarrollo de una funcionalidad nueva</td><td><code>feature/ai-scheduler-cpt-routing</code></td></tr>
+            <tr><td><code>bugfix/*</code></td><td>Corrección de errores no urgentes</td><td><code>bugfix/okta-token-expiry</code></td></tr>
+            <tr><td><code>hotfix/*</code></td><td>Corrección urgente directo sobre producción</td><td><code>hotfix/login-crash</code></td></tr>
+            <tr><td><code>release/*</code></td><td>Preparación de una versión antes de publicarla</td><td><code>release/v2.3.0</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Este esquema se conoce como <b>Git Flow</b>. Para equipos ágiles con despliegues frecuentes,
+        muchos usan <b>Trunk-Based Development</b> (ramas <code>feature/*</code> cortas que se integran a
+        <code>main</code> varias veces por semana, apoyadas en feature flags como LaunchDarkly).
+      </p>
+    </div>
+
+    <!-- 5 -->
+    <div class="tut-section" id="manejar-ramas">
+      <h2><span class="num">5</span>Cómo manejar las ramas mientras editas código</h2>
+      <h3>Flujo estándar por tarea/feature</h3>
+      <pre><code># 1. Parte siempre de main actualizado
+git checkout main
+git pull origin main
+
+# 2. Crea tu rama de trabajo
+git checkout -b feature/nombre-descriptivo
+
+# 3. Trabaja, haz commits pequeños
+git add .
+git commit -m "feat: ..."
+
+# 4. Mantén tu rama sincronizada con main (evita conflictos grandes al final)
+git checkout main
+git pull origin main
+git checkout feature/nombre-descriptivo
+git rebase main   # o: git merge main
+
+# 5. Sube tu rama
+git push -u origin feature/nombre-descriptivo</code></pre>
+
+      <p>Desde VS Code: la barra inferior izquierda muestra la rama activa → clic para crear/cambiar rama (<b>Create new branch</b>). El ícono de sincronización (⟳) hace pull + push en un clic.</p>
+
+      <div class="callout good">
+        <span class="callout-icon">✅</span>
+        <div>
+          <b>Buenas prácticas</b>
+          <ul>
+            <li>Una rama = una tarea/feature/bug. No mezcles cambios de temas distintos.</li>
+            <li>Nombres descriptivos: <code>feature/</code>, <code>bugfix/</code>, <code>hotfix/</code> + ticket/descripción (<code>feature/JIRA-123-sso-timeout</code>).</li>
+            <li>Sincroniza seguido con <code>main</code> para evitar conflictos gigantes al final.</li>
+            <li>Borra la rama local y remota después de mergear:</li>
+          </ul>
+          <pre style="margin-top:10px;"><code>git branch -d feature/nombre-descriptivo
+git push origin --delete feature/nombre-descriptivo</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="tut-section" id="publicar-main">
+      <h2><span class="num">6</span>Cuándo y cómo publicar código a main/master</h2>
+
+      <h3>Cuándo</h3>
+      <ul>
+        <li>Cuando la funcionalidad está completa, probada y revisada (no antes).</li>
+        <li>Nunca hagas push directo a <code>main</code> en equipo — siempre vía Pull Request (PR).</li>
+        <li>Idealmente <code>main</code> debe tener protección de rama activada (<i>branch protection rules</i>) que exija PR + al menos 1 revisor + checks de CI en verde.</li>
+      </ul>
+
+      <h3>Cómo (flujo con Pull Request)</h3>
+      <ol>
+        <li>Sube tu rama:
+          <pre><code>git push -u origin feature/nombre-descriptivo</code></pre>
+        </li>
+        <li>En GitHub → <b>Compare &amp; pull request</b>.</li>
+        <li>Describe el cambio: qué hace, cómo probarlo, tickets relacionados.</li>
+        <li>Espera revisión de un compañero y que pasen los checks de CI/CD (GitHub Actions, tests, Playwright).</li>
+        <li>Resuelve comentarios con commits adicionales o <code>git commit --amend</code> si aplica.</li>
+        <li>Una vez aprobado: <b>Merge pull request</b> (preferible <b>Squash and merge</b> para mantener historial limpio en <code>main</code>).</li>
+        <li>Borra la rama feature (GitHub lo ofrece automáticamente al mergear).</li>
+      </ol>
+
+      <h3>Configuración recomendada en GitHub (Settings → Branches)</h3>
+      <ul>
+        <li>✅ Require pull request before merging.</li>
+        <li>✅ Require approvals (mínimo 1).</li>
+        <li>✅ Require status checks to pass (CI/CD, tests).</li>
+        <li>✅ Require branches to be up to date before merging.</li>
+        <li>🚫 No permitir force push a <code>main</code>.</li>
+      </ul>
+
+      <div class="callout good">
+        <span class="callout-icon">✅</span>
+        <div>
+          <b>Buenas prácticas</b>
+          <ul>
+            <li>Nunca publiques directo a <code>main</code> sin PR, aunque el cambio parezca pequeño.</li>
+            <li>Usa release notes / tags para versiones importantes:</li>
+          </ul>
+          <pre style="margin-top:10px;"><code>git tag -a v1.2.0 -m "Release v1.2.0"
+git push origin v1.2.0</code></pre>
+          <ul>
+            <li>Si algo falla en producción, usa una rama <code>hotfix/*</code> desde <code>main</code>, corrige, y mergea con PR expedito.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="tut-section" id="resumen-comandos">
+      <h2><span class="num">7</span>Resumen de comandos más usados en el día a día</h2>
+      <pre><code>git status                       # ver estado actual
+git pull origin main             # traer cambios del remoto
+git checkout -b feature/x        # crear y moverte a nueva rama
+git add &lt;archivo&gt;                # stage de cambios específicos
+git commit -m "tipo: mensaje"    # commit con mensaje claro
+git push -u origin feature/x     # subir rama por primera vez
+git log --oneline --graph        # ver historial visual
+git diff                         # ver cambios no confirmados
+git stash                        # guardar cambios sin commitear temporalmente
+git rebase main                  # actualizar tu rama con main</code></pre>
+    </div>
+
+    <div class="tut-nav">
+      <a href="../tutorials.html">← Volver a Tutoriales</a>
+      <a href="../sdlc.html">Ver el mapa del SDLC →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="brand" style="color:#fff;">
+      <span class="brand-mark">AI</span> AI Ecosystem / SDLC
+    </div>
+    <ul class="footer-links">
+      <li><a href="../about.html">Sobre mí</a></li>
+      <li><a href="../sdlc.html">SDLC</a></li>
+      <li><a href="../tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="../tutorials.html">Tutoriales</a></li>
+      <li><a href="https://github.com/diegoenn/aiecosystem" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+  <div class="footer-note">Proyecto personal de Diego Enn · actualizado de forma continua · los distintivos de marca son representativos, no logotipos oficiales.</div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

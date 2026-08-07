@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa del SDLC con IA · AI Ecosystem</title>
+<meta name="description" content="Las 10 etapas del ciclo de vida de desarrollo de software, sus herramientas y el por qué de cada una — con la IA como capa transversal.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230B2540%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%23E8A33D%22 font-family=%22sans-serif%22>AI</text></svg>">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ---- Pipeline-specific layout (extends assets/css/style.css tokens) ---- */
+  .legend{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:10px 18px;
+    max-width:900px; margin:26px auto 0;
+  }
+  .legend-item{ display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; color:#EAF0F4; }
+  .legend-dot{ width:11px; height:11px; border-radius:3px; flex:none; }
+
+  .pipeline{ max-width:940px; margin:0 auto; padding:56px 20px 0; position:relative; }
+  .pipeline::before{
+    content:""; position:absolute; left:50%; top:0; bottom:60px; width:3px;
+    background:repeating-linear-gradient(180deg, var(--line) 0 10px, transparent 10px 16px);
+    transform:translateX(-50%); z-index:0;
+  }
+  .stage{ position:relative; z-index:1; margin-bottom:34px; }
+  .stage-head{ display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:16px; }
+  .stage-num{
+    font-family:'Sora',sans-serif; font-weight:800; font-size:20px; color:#fff; background:var(--navy);
+    width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 6px var(--bg), 0 0 0 7px var(--line); flex:none;
+  }
+  .stage-titlewrap{ text-align:left; }
+  .stage-title{ font-family:'Sora',sans-serif; font-weight:700; font-size:19px; color:var(--ink); }
+  .stage-purpose{ font-size:13.5px; color:var(--sub); font-style:italic; max-width:520px; }
+
+  .pipeline-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px; box-shadow:var(--shadow-card);
+  }
+  .group{ padding:12px 0; border-top:1px solid #EEF1EF; }
+  .group:first-child{ border-top:none; padding-top:2px; }
+  .group-top{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:8px; }
+  .group-cat{ flex:none; }
+  .group-why{ font-size:13px; color:var(--sub); line-height:1.45; flex:1 1 auto; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
+
+  .result{
+    margin-top:14px; display:flex; gap:8px; align-items:flex-start;
+    background:#F5FAF8; border:1px dashed #BFDCD4; border-radius:10px; padding:9px 12px;
+    font-size:12.5px; color:#1D5B4E;
+  }
+  .result b{ color:#0F4A3E; }
+
+  .support{ max-width:940px; margin:10px auto 0; padding:0 20px; }
+  .support .pipeline-card{ background:#FBFBF9; }
+  .support-title{ font-family:'Sora',sans-serif; font-weight:700; font-size:16px; margin-bottom:12px; text-align:center; color:var(--ink); }
+
+  @media(max-width:640px){
+    .stage-head{ flex-direction:column; text-align:center; }
+    .stage-titlewrap{ text-align:center; }
+    .group-top{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI</span>
+      AI Ecosystem <span style="color:#E8A33D;">/</span> SDLC
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="sdlc.html" aria-current="page">SDLC</a></li>
+      <li><a href="tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="tutorials.html">Tutoriales</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="eyebrow">SDLC · Software Development Lifecycle</div>
+      <h1>El ciclo de vida del desarrollo de software en la era de IA</h1>
+      <p class="lead">Las 10 etapas, sus herramientas y el "por qué" de cada una — con la IA como capa transversal, no como una fase aislada.</p>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+
+  <div class="pipeline" id="pipeline"></div>
+  <div class="support" id="support"></div>
+
+  <p class="center text-sm" style="margin:36px 0 0; color:var(--sub);">
+    Basado en mi propia matriz de herramientas SDLC · los distintivos de marca son representativos, no logotipos oficiales.
+  </p>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="brand" style="color:#fff;">
+      <span class="brand-mark">AI</span> AI Ecosystem / SDLC
+    </div>
+    <ul class="footer-links">
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="sdlc.html">SDLC</a></li>
+      <li><a href="tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="tutorials.html">Tutoriales</a></li>
+      <li><a href="https://github.com/diegoenn/aiecosystem" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+  <div class="footer-note">Proyecto personal de Diego Enn · actualizado de forma continua · los distintivos de marca son representativos, no logotipos oficiales.</div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+const CAT_LABEL = {
+  pm:"Gestión & Documentación",
+  dev:"Desarrollo & Dev Tools",
+  ai:"Inteligencia Artificial",
+  qa:"Testing & QA",
+  infra:"Infraestructura / CI-CD / Ops",
+  design:"Diseño & Prototipado"
+};
+
+function initials(name){
+  const clean = name.replace(/\(.*?\)/g,'').trim();
+  const parts = clean.split(/[\s\/,+&-]+/).filter(Boolean);
+  if(parts.length===1) return parts[0].slice(0,2).toUpperCase();
+  return (parts[0][0]+parts[1][0]).toUpperCase();
+}
+
+function tool(name, isAI=false){ return {name, isAI}; }
+
+const stages = [
+  {
+    num:1, title:"Descubrimiento", cat:"design",
+    purpose:"Entender el problema real antes de proponer soluciones.",
+    result:"Problem Statement validado con evidencia de que vale la pena resolverlo.",
+    groups:[
+      {cat:"ai", label:"IA para investigación", tools:[tool("Claude",true),tool("ChatGPT",true),tool("Perplexity",true)],
+        why:"Síntesis rápida de entrevistas y resúmenes de feedback de usuarios."},
+      {cat:"pm", label:"Gestión de conocimiento", tools:[tool("Notion"),tool("Confluence")],
+        why:"Centralizar hallazgos, journey maps y POV statements en un solo lugar."},
+      {cat:"design", label:"Encuestas / feedback", tools:[tool("Typeform"),tool("Google Forms"),tool("Dovetail")],
+        why:"Recolectar y tagear insights cualitativos de usuarios."},
+      {cat:"infra", label:"Analytics", tools:[tool("Amplitude"),tool("Mixpanel"),tool("Google Analytics")],
+        why:"Validar el problema con datos de comportamiento real, no solo intuición."},
+    ]
+  },
+  {
+    num:2, title:"Definición y Requisitos", cat:"pm",
+    purpose:"Traducir el problema en una solución concreta y accionable.",
+    result:"PRD aprobado y backlog inicial priorizado.",
+    groups:[
+      {cat:"ai", label:"IA para redacción", tools:[tool("Claude",true),tool("Notion AI",true)],
+        why:"Genera borradores de PRD estructurados que solo requieren ajuste."},
+      {cat:"pm", label:"Gestión de producto", tools:[tool("Jira"),tool("Linear"),tool("Notion")],
+        why:"Trazabilidad entre requisito, historia y tarea."},
+      {cat:"pm", label:"Documentación colaborativa", tools:[tool("Notion"),tool("Confluence"),tool("Google Docs")],
+        why:"Versión única de verdad, con comentarios inline de stakeholders."},
+      {cat:"pm", label:"Priorización", tools:[tool("Productboard"),tool("Jira")],
+        why:"Objetivar decisiones de qué construir primero (RICE / MoSCoW)."},
+    ]
+  },
+  {
+    num:3, title:"Diseño", cat:"design",
+    purpose:"Definir cómo se verá y funcionará la solución.",
+    result:"Diseños validados + arquitectura técnica documentada.",
+    groups:[
+      {cat:"ai", label:"Prototipado con IA", tools:[tool("Claude",true),tool("v0 Vercel",true),tool("Lovable",true),tool("Bolt.new",true)],
+        why:"UI funcional en minutos; valida el flujo antes de invertir en desarrollo real."},
+      {cat:"design", label:"Diseño UI/UX tradicional", tools:[tool("Figma")],
+        why:"Estándar de la industria para sistemas de componentes y handoff formal."},
+      {cat:"design", label:"Arquitectura técnica", tools:[tool("Excalidraw"),tool("Lucidchart"),tool("Mermaid")],
+        why:"Diagramas de flujo rápidos y versionables como código."},
+      {cat:"dev", label:"Documentación de API", tools:[tool("Swagger"),tool("Postman")],
+        why:"Contratos de API claros antes de construir integraciones."},
+    ]
+  },
+  {
+    num:4, title:"Planificación", cat:"pm",
+    purpose:"Organizar el trabajo en unidades ejecutables con tiempos y responsables.",
+    result:"Roadmap y sprint plan con owners definidos.",
+    groups:[
+      {cat:"pm", label:"Gestión ágil", tools:[tool("Jira"),tool("Linear"),tool("Asana")],
+        why:"Sprint planning, backlogs y dependencias entre equipos."},
+      {cat:"pm", label:"Roadmapping", tools:[tool("Productboard"),tool("Aha!"),tool("Notion")],
+        why:"Visualización ejecutiva del roadmap para stakeholders no técnicos."},
+      {cat:"pm", label:"Estimación", tools:[tool("Jira"),tool("Scrum Poker")],
+        why:"Consenso de equipo sobre esfuerzo, reduce sorpresas a mitad de sprint."},
+      {cat:"ai", label:"IA para planning", tools:[tool("Claude",true)],
+        why:"Acelera el desglose de PRD a backlog estructurado."},
+    ]
+  },
+  {
+    num:5, title:"Desarrollo (Build)", cat:"dev",
+    purpose:"Construir la solución según lo diseñado.",
+    result:"Código funcional, revisado y mergeado.",
+    groups:[
+      {cat:"dev", label:"IDE / Editor de código", tools:[tool("VS Code")],
+        why:"Entorno base: Git integrado, terminal, debugging y extensiones de IA."},
+      {cat:"ai", label:"IDE (alternativas agénticas)", tools:[tool("Cursor",true),tool("Antigravity",true),tool("JetBrains"),tool("Zed"),tool("Neovim")],
+        why:"Cursor y Antigravity son forks de VS Code con agentes de IA nativos; Antigravity orquesta varios agentes en paralelo."},
+      {cat:"ai", label:"Codificación asistida por IA", tools:[tool("Claude Code",true),tool("GitHub Copilot",true),tool("OpenAI Codex",true)],
+        why:"Claude Code y Codex ejecutan tareas completas de principio a fin (PRs autónomos); Copilot asiste línea a línea."},
+      {cat:"dev", label:"Control de versiones", tools:[tool("GitHub"),tool("GitLab")],
+        why:"Estándar para versionado, pull requests y code review."},
+      {cat:"dev", label:"Entornos de desarrollo", tools:[tool("Vercel"),tool("Railway"),tool("Replit")],
+        why:"Deploys de preview automáticos por cada PR, visibles sin esperar a producción."},
+    ]
+  },
+  {
+    num:6, title:"Testing / QA", cat:"qa",
+    purpose:"Validar que la solución funciona y no rompe nada existente.",
+    result:"Software validado, bugs críticos resueltos, sign-off de calidad.",
+    groups:[
+      {cat:"qa", label:"Testing unitario / integración", tools:[tool("Jest"),tool("Pytest"),tool("JUnit")],
+        why:"Automatiza validación de lógica antes de llegar a QA manual."},
+      {cat:"qa", label:"Testing E2E", tools:[tool("Playwright"),tool("Cypress")],
+        why:"Simula flujos completos de usuario y detecta regresiones."},
+      {cat:"qa", label:"Testing de API", tools:[tool("Postman"),tool("Newman"),tool("Hoppscotch")],
+        why:"Valida contratos de API automáticamente en integraciones clave."},
+      {cat:"ai", label:"IA para casos de prueba", tools:[tool("Claude",true),tool("GitHub Copilot",true)],
+        why:"Genera casos edge que un humano podría no considerar."},
+      {cat:"qa", label:"Bug tracking", tools:[tool("Jira"),tool("Linear"),tool("Sentry")],
+        why:"Trazabilidad de defectos desde reporte hasta resolución."},
+    ]
+  },
+  {
+    num:7, title:"Despliegue (Deployment)", cat:"infra",
+    purpose:"Llevar la solución a producción de forma segura.",
+    result:"Feature en producción, disponible para usuarios, sin incidentes.",
+    groups:[
+      {cat:"infra", label:"CI/CD", tools:[tool("GitHub Actions"),tool("GitLab CI"),tool("CircleCI")],
+        why:"Automatiza build, test y deploy sin intervención manual."},
+      {cat:"infra", label:"Orquestación / hosting", tools:[tool("Vercel"),tool("AWS"),tool("Azure DevOps")],
+        why:"AWS/Azure son comunes en entornos con requisitos de compliance."},
+      {cat:"infra", label:"Feature flags", tools:[tool("LaunchDarkly"),tool("Split.io")],
+        why:"Despliegue progresivo y rollback instantáneo sin re-deploy."},
+      {cat:"infra", label:"Infraestructura como código", tools:[tool("Terraform"),tool("Pulumi")],
+        why:"Reproducibilidad de entornos, auditable para compliance."},
+    ]
+  },
+  {
+    num:8, title:"Operación y Monitoreo", cat:"infra",
+    purpose:"Asegurar que el sistema funciona bien en el mundo real, de forma continua.",
+    result:"Sistema estable, incidentes detectados y resueltos rápido.",
+    groups:[
+      {cat:"infra", label:"Observabilidad", tools:[tool("Datadog"),tool("New Relic"),tool("Grafana")],
+        why:"Monitoreo de performance y alertas en tiempo real."},
+      {cat:"infra", label:"Logging y errores", tools:[tool("Sentry"),tool("LogRocket")],
+        why:"Detección rápida de errores en producción con contexto de sesión."},
+      {cat:"infra", label:"Alertas / on-call", tools:[tool("PagerDuty"),tool("Opsgenie")],
+        why:"Escalamiento automático de incidentes críticos."},
+      {cat:"ai", label:"Monitoreo de modelos IA", tools:[tool("LangSmith",true),tool("Weights & Biases",true),tool("Arize",true)],
+        why:"Trackea drift y fallos específicos de componentes de IA, no solo uptime."},
+    ]
+  },
+  {
+    num:9, title:"Iteración y Mantenimiento", cat:"pm",
+    purpose:"Mejorar continuamente basándose en datos reales de uso.",
+    result:"Backlog actualizado con aprendizajes y mejoras planificadas.",
+    groups:[
+      {cat:"pm", label:"Feedback de usuarios", tools:[tool("Intercom"),tool("Zendesk"),tool("Canny")],
+        why:"Centraliza solicitudes para priorizar el siguiente ciclo."},
+      {cat:"pm", label:"Retrospectivas", tools:[tool("Notion"),tool("Miro"),tool("FunRetro")],
+        why:"Documentar aprendizajes de forma estructurada y accionable."},
+      {cat:"dev", label:"Deuda técnica", tools:[tool("SonarQube"),tool("CodeClimate")],
+        why:"Identifica objetivamente dónde refactorizar antes de que bloquee."},
+      {cat:"ai", label:"IA para análisis de feedback", tools:[tool("Claude",true)],
+        why:"Convierte cientos de tickets de soporte en patrones accionables."},
+    ]
+  },
+  {
+    num:10, title:"Fin de vida / Deprecación", cat:"pm",
+    purpose:"Retirar funcionalidades o sistemas de forma ordenada.",
+    result:"Retiro limpio, sin pérdida de datos ni impacto no planeado.",
+    groups:[
+      {cat:"pm", label:"Comunicación", tools:[tool("Intercom"),tool("Mailchimp")],
+        why:"Aviso estructurado y con antelación a usuarios afectados."},
+      {cat:"pm", label:"Documentación de cierre", tools:[tool("Notion"),tool("Confluence")],
+        why:"Registro histórico de decisiones para auditoría regulatoria."},
+      {cat:"ai", label:"Migración de datos", tools:[tool("Claude Code",true)],
+        why:"Automatiza y valida integridad de datos migrados."},
+    ]
+  },
+];
+
+const supportGroup = {
+  title:"Soporte Transversal · Todas las Etapas",
+  groups:[
+    {cat:"pm", label:"Soporte al cliente", tools:[tool("Zendesk"),tool("Intercom")], why:"Soporte al cliente y base de conocimiento."},
+    {cat:"infra", label:"Comunicación de incidentes", tools:[tool("Statuspage")], why:"Comunicación de incidentes/downtime a usuarios."},
+    {cat:"dev", label:"Visibilidad de pipeline", tools:[tool("Slack")], why:"Visibilidad en tiempo real del estado del pipeline completo."},
+  ]
+};
+
+function renderChip(t){
+  const cls = t.isAI ? "ai" : "";
+  return `<span class="chip ${cls}">
+    <span class="badge ${t._cat}">${initials(t.name)}</span>
+    ${t.name}${t.isAI ? '<span class="ai-spark">✦</span>' : ''}
+  </span>`;
+}
+
+function renderGroup(g){
+  g.tools.forEach(t=>t._cat=g.cat);
+  return `
+  <div class="group">
+    <div class="group-top">
+      <span class="tag ${g.cat} group-cat">${g.label}</span>
+      <span class="group-why">${g.why}</span>
+    </div>
+    <div class="chips">${g.tools.map(renderChip).join('')}</div>
+  </div>`;
+}
+
+function renderStage(s){
+  return `
+  <div class="stage">
+    <div class="stage-head">
+      <div class="stage-num">${s.num}</div>
+      <div class="stage-titlewrap">
+        <div class="stage-title">${s.title}</div>
+        <div class="stage-purpose">${s.purpose}</div>
+      </div>
+    </div>
+    <div class="pipeline-card">
+      ${s.groups.map(renderGroup).join('')}
+      <div class="result"><b>Resultado esperado:</b>&nbsp;${s.result}</div>
+    </div>
+  </div>`;
+}
+
+document.getElementById('pipeline').innerHTML = stages.map(renderStage).join('');
+
+document.getElementById('support').innerHTML = `
+  <div class="stage" style="margin-top:6px;">
+    <div class="support-title">${supportGroup.title}</div>
+    <div class="pipeline-card">
+      ${supportGroup.groups.map(renderGroup).join('')}
+    </div>
+  </div>`;
+
+document.getElementById('legend').innerHTML = Object.entries(CAT_LABEL).map(([k,v])=>`
+  <div class="legend-item">
+    <span class="legend-dot" style="background:var(--${
+      k==='pm'?'navy':k==='dev'?'teal':k==='ai'?'amber':k==='qa'?'violet':k==='infra'?'brick':'slateblue'
+    })"></span>${v}
+  </div>`).join('') + `<div class="legend-item"><span style="color:#E8A33D;">✦</span>&nbsp;Herramienta con IA</div>`;
+</script>
+</body>
+</html>

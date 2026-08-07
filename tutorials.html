@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutoriales · AI Ecosystem</title>
+<meta name="description" content="Guías de referencia práctica: de Git y GitHub a flujos de trabajo con agentes de IA.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230B2540%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%23E8A33D%22 font-family=%22sans-serif%22>AI</text></svg>">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .tut-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-m);
+    padding:24px; text-decoration:none; color:var(--ink); display:flex; flex-direction:column; gap:10px;
+    box-shadow:var(--shadow-card); transition:transform .15s, box-shadow .15s;
+  }
+  a.tut-card:hover{ transform:translateY(-3px); box-shadow:0 14px 30px -18px rgba(16,32,43,0.35); }
+  .tut-card h3{ font-size:17px; margin-bottom:2px; }
+  .tut-card p{ font-size:14px; margin:0; }
+  .tut-card .meta{ display:flex; gap:8px; flex-wrap:wrap; margin-top:auto; padding-top:10px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI</span>
+      AI Ecosystem <span style="color:#E8A33D;">/</span> SDLC
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="sdlc.html">SDLC</a></li>
+      <li><a href="tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="tutorials.html" aria-current="page">Tutoriales</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="eyebrow">Guías de referencia</div>
+      <h1>Tutoriales</h1>
+      <p class="lead">Guías prácticas que uso yo mismo como referencia rápida — sin relleno, directo a lo que hay que hacer.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="grid grid-3">
+
+        <a class="tut-card" href="tutorials/git-github.html">
+          <div class="pillar-icon" style="background:var(--navy-bg); color:var(--navy);">🌿</div>
+          <h3>Git &amp; GitHub</h3>
+          <p>Guía de referencia diaria: crear repos, clonar de forma segura, commits, ramas y el flujo de Pull Request a main.</p>
+          <div class="meta">
+            <span class="tag pm">Fundamentos</span>
+            <span class="tag dev">8 min de lectura</span>
+          </div>
+        </a>
+
+        <div class="tut-card soon-card">
+          <span class="soon-badge">Próximamente</span>
+          <div class="pillar-icon" style="background:var(--amber-bg); color:var(--amber);">🤖</div>
+          <h3>Trabajando con Claude Code</h3>
+          <p>Cómo estructuro tareas, reviso diffs y confío (o no) en un agente de código de principio a fin.</p>
+          <div class="meta">
+            <span class="tag ai">Coding agents</span>
+          </div>
+        </div>
+
+        <div class="tut-card soon-card">
+          <span class="soon-badge">Próximamente</span>
+          <div class="pillar-icon" style="background:var(--brick-bg); color:var(--brick);">⚙️</div>
+          <h3>CI/CD con GitHub Actions</h3>
+          <p>Pipeline mínimo viable: lint, test, build y deploy automático en cada Pull Request.</p>
+          <div class="meta">
+            <span class="tag infra">CI/CD</span>
+          </div>
+        </div>
+
+        <div class="tut-card soon-card">
+          <span class="soon-badge">Próximamente</span>
+          <div class="pillar-icon" style="background:var(--violet-bg); color:var(--violet);">🧪</div>
+          <h3>Testing E2E con Playwright</h3>
+          <p>Simular flujos completos de usuario y detectar regresiones antes de llegar a producción.</p>
+          <div class="meta">
+            <span class="tag qa">Testing &amp; QA</span>
+          </div>
+        </div>
+
+        <div class="tut-card soon-card">
+          <span class="soon-badge">Próximamente</span>
+          <div class="pillar-icon" style="background:var(--slateblue-bg); color:var(--slateblue);">🎨</div>
+          <h3>Prototipado rápido con v0 / Lovable</h3>
+          <p>De un prompt a una interfaz funcional en minutos, y cómo llevarla a un repo real.</p>
+          <div class="meta">
+            <span class="tag design">Diseño</span>
+          </div>
+        </div>
+
+        <div class="tut-card soon-card">
+          <span class="soon-badge">Próximamente</span>
+          <div class="pillar-icon" style="background:var(--teal-bg); color:var(--teal);">📊</div>
+          <h3>Prompt engineering para tareas de código</h3>
+          <p>Cómo escribo instrucciones para agentes de IA que producen menos idas y vueltas.</p>
+          <div class="meta">
+            <span class="tag dev">Dev tools</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="brand" style="color:#fff;">
+      <span class="brand-mark">AI</span> AI Ecosystem / SDLC
+    </div>
+    <ul class="footer-links">
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="sdlc.html">SDLC</a></li>
+      <li><a href="tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="tutorials.html">Tutoriales</a></li>
+      <li><a href="https://github.com/diegoenn/aiecosystem" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+  <div class="footer-note">Proyecto personal de Diego Enn · actualizado de forma continua · los distintivos de marca son representativos, no logotipos oficiales.</div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
