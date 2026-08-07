@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glosario de Claude Code — Referencia rápida · AI Ecosystem</title>
+<meta name="description" content="Glosario de referencia con los términos y comandos más usados de Claude Code: modelos, permisos, CLAUDE.md, skills, MCP, subagentes, loops y automatización.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230B2540%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%23E8A33D%22 font-family=%22sans-serif%22>AI</text></svg>">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">AI</span>
+      AI Ecosystem <span style="color:#E8A33D;">/</span> SDLC
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="../about.html">Sobre mí</a></li>
+      <li><a href="../sdlc.html">SDLC</a></li>
+      <li><a href="../tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="../tutorials.html" aria-current="page">Tutoriales</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="eyebrow">Tutorial · Referencia</div>
+      <h1>Glosario de Claude Code</h1>
+      <p class="lead">Los términos, comandos y conceptos que uso a diario trabajando con Claude Code, en una sola página para tener al lado mientras construyo.</p>
+    </div>
+  </div>
+
+  <div class="container-narrow">
+    <div class="meta-row" style="margin-top:32px;">
+      <span class="tag pm">Fundamentos</span>
+      <span class="tag ai">Claude Code</span>
+      <span class="tag dev">Glosario</span>
+    </div>
+
+    <nav class="toc" aria-label="Tabla de contenido">
+      <h2>En esta guía</h2>
+      <ol>
+        <li><a href="#comandos">Comandos rápidos</a></li>
+        <li><a href="#ecosistema">El ecosistema Claude</a></li>
+        <li><a href="#interfaz">Instalación e interfaz</a></li>
+        <li><a href="#contexto">Tokens, contexto y límites</a></li>
+        <li><a href="#permisos">Modos de permisos y control</a></li>
+        <li><a href="#memoria">CLAUDE.md, memoria y archivos</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#mcp">MCP y conectores</a></li>
+        <li><a href="#subagentes">Subagentes y orquestación</a></li>
+        <li><a href="#loops">Loops y goals</a></li>
+        <li><a href="#automatizacion">Automatización 24/7</a></li>
+        <li><a href="#investigacion">Navegador e investigación</a></li>
+        <li><a href="#segundo-cerebro">Segundo cerebro</a></li>
+      </ol>
+    </nav>
+
+    <p>
+      Claude Code trae un vocabulario propio — comandos con slash, modos de permisos, tipos de memoria,
+      formas de orquestar agentes — que al principio se siente denso. Esta página junta las definiciones
+      cortas que uso yo mismo como chuleta, agrupadas por tema en vez de alfabéticamente, para que tengan
+      sentido en el orden en que normalmente las vas necesitando.
+    </p>
+
+    <!-- 1 -->
+    <div class="tut-section" id="comandos">
+      <h2><span class="num">1</span>Comandos rápidos</h2>
+      <p>Los comandos con slash que se escriben directamente en el chat de Claude Code, sin salir de la sesión.</p>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+          <tbody>
+            <tr><td><code>/model</code></td><td>Cambia la familia de modelo con la que trabaja la sesión actual.</td></tr>
+            <tr><td><code>/usage</code></td><td>Muestra cuánto uso llevas consumido en el bloque de horas y en la semana.</td></tr>
+            <tr><td><code>/context</code></td><td>Indica qué porcentaje de la ventana de contexto está ocupado en este momento.</td></tr>
+            <tr><td><code>/compact</code></td><td>Resume la conversación para liberar espacio de contexto (hoy también ocurre solo).</td></tr>
+            <tr><td><code>/clear</code></td><td>Borra la conversación actual y arranca una sesión en blanco.</td></tr>
+            <tr><td><code>/rewind</code></td><td>Deshace cambios recientes en la conversación o en el código — el "Ctrl+Z" de la sesión.</td></tr>
+            <tr><td><code>/resume</code></td><td>Retoma una sesión anterior con todo su historial y contexto.</td></tr>
+            <tr><td><code>/memory</code></td><td>Muestra y permite editar lo que Claude recuerda de ti entre sesiones.</td></tr>
+            <tr><td><code>/agents</code></td><td>Lista los subagentes disponibles y permite crear nuevos.</td></tr>
+            <tr><td><code>/permissions</code></td><td>Configura qué acciones puede ejecutar Claude sin pedirte confirmación.</td></tr>
+            <tr><td><code>Shift + Tab</code></td><td>Cambia el modo de permisos al vuelo, sin interrumpir lo que estás haciendo.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="tut-section" id="ecosistema">
+      <h2><span class="num">2</span>El ecosistema Claude</h2>
+      <p>Claude Code es una pieza de un conjunto más grande de productos de Anthropic; conviene distinguirlos.</p>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Anthropic</b></td><td>La empresa que desarrolla los modelos Claude.</td></tr>
+            <tr><td><b>Claude</b></td><td>La familia de modelos de lenguaje de Anthropic.</td></tr>
+            <tr><td><b>Claude Code</b></td><td>El agente de esta guía: la interfaz pensada para construir y ejecutar tareas de software de principio a fin, no solo conversar.</td></tr>
+            <tr><td><b>Modelo</b></td><td>El motor que procesa cada solicitud. Se elige por familia (rendimiento/costo), no por la versión puntual.</td></tr>
+            <tr><td><b>Opus / Sonnet / Haiku</b></td><td>Las familias de modelos según el balance entre capacidad y velocidad: Opus para razonamiento pesado, Sonnet como opción rápida y capaz para el día a día, Haiku para tareas simples y en volumen.</td></tr>
+            <tr><td><b>Plan de suscripción</b></td><td>El nivel de cuenta (Free, Pro, Max) que determina cuánto uso tienes disponible por sesión y por semana.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="tut-section" id="interfaz">
+      <h2><span class="num">3</span>Instalación e interfaz</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Terminal</b></td><td>La forma original de usar Claude Code: una ventana de línea de comandos.</td></tr>
+            <tr><td><b>App de escritorio</b></td><td>La interfaz gráfica que integra chat, archivos, navegador y terminal sin instalar nada adicional.</td></tr>
+            <tr><td><b>IDE</b></td><td>Un entorno de desarrollo tradicional (VS Code, JetBrains, etc.) donde Claude Code también puede integrarse como extensión.</td></tr>
+            <tr><td><b>Sesión</b></td><td>Una conversación de trabajo con contexto propio. Regla práctica: tarea nueva, sesión nueva.</td></tr>
+            <tr><td><b>Proyecto</b></td><td>La carpeta sobre la que trabaja Claude Code; por defecto solo ve lo que hay dentro de ella.</td></tr>
+            <tr><td><b>Prompt</b></td><td>La instrucción que le das a Claude — funciona mejor entre más contexto y claridad le das, como si le hablaras a una persona nueva en el equipo.</td></tr>
+            <tr><td><b>Nivel de esfuerzo</b></td><td>Cuánto "piensa" el modelo antes de responder: bajo es más rápido y barato, alto suele dar mejores resultados en tareas complejas a mayor costo.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="tut-section" id="contexto">
+      <h2><span class="num">4</span>Tokens, contexto y límites</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Token</b></td><td>La unidad mínima de texto que procesa el modelo. Todo lo que entra y sale de la conversación consume tokens.</td></tr>
+            <tr><td><b>Ventana de contexto</b></td><td>Todo lo que Claude "tiene presente" en la sesión actual — como el espacio disponible sobre un escritorio de trabajo.</td></tr>
+            <tr><td><b>Context rot</b></td><td>La degradación de calidad que ocurre cuando una conversación se vuelve demasiado larga. La solución habitual es empezar una sesión nueva.</td></tr>
+            <tr><td><b>Compactar</b></td><td>Resumir lo conversado hasta el momento para liberar espacio de contexto sin perder lo esencial.</td></tr>
+            <tr><td><b>Límite de sesión / semanal</b></td><td>Las cuotas de uso de tu plan, por bloque de horas y por semana — se consultan con <code>/usage</code>, no se estiman a ojo.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="tut-section" id="permisos">
+      <h2><span class="num">5</span>Modos de permisos y control</h2>
+      <p>Cuánta autonomía le das a Claude Code para actuar sin preguntarte antes.</p>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Modo</th><th>Qué implica</th></tr></thead>
+          <tbody>
+            <tr><td><b>Manual (default)</b></td><td>Pide permiso antes de cada acción relevante. El punto de partida recomendado mientras aprendes el flujo.</td></tr>
+            <tr><td><b>Accept Edits</b></td><td>Acepta automáticamente las ediciones de archivos, sin preguntar una por una — más velocidad, menos fricción.</td></tr>
+            <tr><td><b>Plan Mode</b></td><td>Claude piensa y propone un plan de acción sin tocar nada todavía, ideal para revisar el enfoque antes de gastar tiempo o cuota.</td></tr>
+            <tr><td><b>Bypass</b></td><td>Autonomía total, sin confirmaciones. Solo recomendable en entornos aislados y controlados.</td></tr>
+            <tr><td><b>Checkpoint</b></td><td>Una especie de "foto" automática del estado antes de cada cambio, que es lo que hace posible deshacer con <code>/rewind</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <span class="callout-icon">⚠️</span>
+        <div>
+          <b>Cuándo usar cada uno</b>
+          <p style="margin:6px 0 0;">Manual para tareas nuevas o sensibles, Accept Edits para iterar rápido en algo que ya conoces, Plan Mode antes de tareas grandes o ambiguas, y Bypass solo en un sandbox donde un error no cuesta nada.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="tut-section" id="memoria">
+      <h2><span class="num">6</span>CLAUDE.md, memoria y archivos</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><code>CLAUDE.md</code></td><td>El archivo de instrucciones del proyecto: quién eres, tus reglas, tu tono. Se carga automáticamente en cada sesión — conviene mantenerlo corto y concreto.</td></tr>
+            <tr><td><b>Nivel global vs. local</b></td><td>Global vive en tu carpeta de usuario y aplica a todos tus proyectos; local vive dentro de un proyecto y aplica solo ahí. Regla práctica: lo que siempre haces igual va en global, lo específico del proyecto va en local.</td></tr>
+            <tr><td><b>Memoria automática</b></td><td>Lo que Claude anota por su cuenta sobre ti y tu forma de trabajar entre sesiones, para no repetir el mismo contexto cada vez.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="tut-section" id="skills">
+      <h2><span class="num">7</span>Skills</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Skill</b></td><td>Una forma de hacer algo convertida en procedimiento reutilizable, que se invoca luego con <code>/nombre-del-skill</code>.</td></tr>
+            <tr><td><b>Skill global vs. local</b></td><td>Igual que con la memoria: disponible en todos tus proyectos, o solo en uno.</td></tr>
+            <tr><td><b>Marketplace</b></td><td>El catálogo de skills y plugins creados por otras personas, listos para instalar con un comando.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout good">
+        <span class="callout-icon">✅</span>
+        <div>
+          <b>El truco que más uso</b>
+          <p style="margin:6px 0 0;">Cuando una sesión larga finalmente da con el resultado que quería, antes de cerrarla le pido a Claude que convierta ese proceso en un skill — así la próxima vez no repito el mismo tanteo desde cero.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="tut-section" id="mcp">
+      <h2><span class="num">8</span>MCP y conectores</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>MCP</b></td><td>Model Context Protocol: el estándar que permite a Claude hablar con herramientas y servicios externos de forma consistente.</td></tr>
+            <tr><td><b>API</b></td><td>La puerta técnica que expone un servicio para integrarse con él. Un servidor MCP es básicamente esa puerta ya adaptada para que un agente la use.</td></tr>
+            <tr><td><b>Conector</b></td><td>Un servidor MCP ya configurado y listo para activar (Gmail, Notion, GitHub, Vercel, y cientos más).</td></tr>
+            <tr><td><b>OAuth</b></td><td>El flujo de autorización que conecta tu cuenta con un par de clics, sin tener que copiar ni pegar claves manualmente.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="tut-section" id="subagentes">
+      <h2><span class="num">9</span>Subagentes y orquestación</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Subagente</b></td><td>Una instancia con contexto propio (mente "fresca") que se encarga de una parte específica del problema.</td></tr>
+            <tr><td><b>Secuencial vs. paralelo</b></td><td>Subagentes que trabajan uno tras otro, o varios al mismo tiempo sobre partes distintas de la misma tarea.</td></tr>
+            <tr><td><b>Orquestar</b></td><td>Coordinar ese equipo de subagentes en vez de ejecutar cada paso directamente.</td></tr>
+            <tr><td><b>Maker y checker</b></td><td>Un patrón donde un agente hace el trabajo y otro, independiente, lo revisa antes de dártelo — reduce el riesgo de que un error pase desapercibido.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="tut-section" id="loops">
+      <h2><span class="num">10</span>Loops y goals</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Loop</b></td><td>Una tarea que se repite a intervalos definidos (cada hora, cada mañana, etc.).</td></tr>
+            <tr><td><b>Goal</b></td><td>Una tarea que se ejecuta hasta cumplir una condición verificable, y ahí se detiene por sí sola.</td></tr>
+            <tr><td><b>Meta verificable</b></td><td>Una condición que se puede comprobar objetivamente (sin opinión humana de por medio) — sin esto, un loop puede quedarse corriendo sin sentido y consumiendo cuota.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="tut-section" id="automatizacion">
+      <h2><span class="num">11</span>Automatización 24/7</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Routine</b></td><td>Claude Code ejecutándose en la nube, sin depender de que tu computador esté encendido.</td></tr>
+            <tr><td><b>Trigger</b></td><td>El evento que dispara una automatización.</td></tr>
+            <tr><td><b>Event-triggered</b></td><td>Se dispara cuando ocurre algo puntual (por ejemplo, alguien completa un formulario).</td></tr>
+            <tr><td><b>Time-triggered</b></td><td>Se dispara según un horario fijo (por ejemplo, todos los días a las 7am).</td></tr>
+            <tr><td><b>Webhook</b></td><td>La URL que recibe el aviso de que algo pasó en otro sistema, y que puede usarse para disparar una automatización.</td></tr>
+            <tr><td><b>Human in the loop</b></td><td>Un punto de control donde nada se envía o publica sin que una persona lo apruebe primero.</td></tr>
+            <tr><td><b>n8n</b></td><td>Una plataforma de automatización externa que puede conectarse a Claude Code vía MCP para tareas que necesitan correr de forma continua e independiente de tu suscripción.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="tut-section" id="investigacion">
+      <h2><span class="num">12</span>Navegador e investigación</h2>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Navegador nativo</b></td><td>Claude operando un navegador real — viendo la página tal como la ves tú, no solo leyendo su código.</td></tr>
+            <tr><td><b>Scraping</b></td><td>Extraer información de una página que no ofrece una API ni un conector MCP oficial.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="tut-section" id="segundo-cerebro">
+      <h2><span class="num">13</span>Segundo cerebro</h2>
+      <p>Cómo usar Claude Code para construir y consultar una base de conocimiento propia.</p>
+      <div class="table-scroll" style="overflow-x:auto;">
+        <table class="ref-table">
+          <thead><tr><th>Término</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td><b>Segundo cerebro</b></td><td>Una colección de notas conectadas entre sí que Claude puede construir, mantener y consultar como referencia.</td></tr>
+            <tr><td><b>Obsidian</b></td><td>Un visor gratuito para navegar esas notas y el grafo de conexiones entre ellas.</td></tr>
+            <tr><td><b>Wikilink</b></td><td>El enlace <code>[[así]]</code> entre notas que arma la red de conexiones.</td></tr>
+            <tr><td><b>RAG</b></td><td>Retrieval-Augmented Generation: búsqueda por similitud sobre bases de datos grandes. Útil para volúmenes masivos de documentos; para colecciones más chicas, una wiki de notas suele ser más simple y igual de efectiva.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout good" style="margin-top:44px;">
+      <span class="callout-icon">📚</span>
+      <div>
+        <b>Sobre esta página</b>
+        <p style="margin:6px 0 0;">Este glosario lo escribí a partir de mis propias notas usando Claude Code día a día. Si buscas un curso guiado y estructurado sobre el tema, hay varias opciones pagas y gratuitas en la comunidad — esta página es simplemente mi referencia rápida personal.</p>
+      </div>
+    </div>
+
+    <div class="tut-nav">
+      <a href="../tutorials.html">← Volver a Tutoriales</a>
+      <a href="git-github.html">Ver el tutorial de Git &amp; GitHub →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="brand" style="color:#fff;">
+      <span class="brand-mark">AI</span> AI Ecosystem / SDLC
+    </div>
+    <ul class="footer-links">
+      <li><a href="../about.html">Sobre mí</a></li>
+      <li><a href="../sdlc.html">SDLC</a></li>
+      <li><a href="../tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="../tutorials.html">Tutoriales</a></li>
+      <li><a href="https://github.com/diegoenn/aiecosystem" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+  <div class="footer-note">Proyecto personal de Diego Enn · actualizado de forma continua · los distintivos de marca son representativos, no logotipos oficiales.</div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
