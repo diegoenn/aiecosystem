@@ -7,60 +7,6 @@
 <meta name="description" content="Las 10 etapas del ciclo de vida de desarrollo de software, sus herramientas y el por qué de cada una — con la IA como capa transversal.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230B2540%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%23E8A33D%22 font-family=%22sans-serif%22>AI</text></svg>">
 <link rel="stylesheet" href="assets/css/style.css">
-<style>
-  /* ---- Pipeline-specific layout (extends assets/css/style.css tokens) ---- */
-  .legend{
-    display:flex; flex-wrap:wrap; justify-content:center; gap:10px 18px;
-    max-width:900px; margin:26px auto 0;
-  }
-  .legend-item{ display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; color:#EAF0F4; }
-  .legend-dot{ width:11px; height:11px; border-radius:3px; flex:none; }
-
-  .pipeline{ max-width:940px; margin:0 auto; padding:56px 20px 0; position:relative; }
-  .pipeline::before{
-    content:""; position:absolute; left:50%; top:0; bottom:60px; width:3px;
-    background:repeating-linear-gradient(180deg, var(--line) 0 10px, transparent 10px 16px);
-    transform:translateX(-50%); z-index:0;
-  }
-  .stage{ position:relative; z-index:1; margin-bottom:34px; }
-  .stage-head{ display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:16px; }
-  .stage-num{
-    font-family:'Sora',sans-serif; font-weight:800; font-size:20px; color:#fff; background:var(--navy);
-    width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 0 6px var(--bg), 0 0 0 7px var(--line); flex:none;
-  }
-  .stage-titlewrap{ text-align:left; }
-  .stage-title{ font-family:'Sora',sans-serif; font-weight:700; font-size:19px; color:var(--ink); }
-  .stage-purpose{ font-size:13.5px; color:var(--sub); font-style:italic; max-width:520px; }
-
-  .pipeline-card{
-    background:var(--paper); border:1px solid var(--line); border-radius:14px;
-    padding:20px 22px; box-shadow:var(--shadow-card);
-  }
-  .group{ padding:12px 0; border-top:1px solid #EEF1EF; }
-  .group:first-child{ border-top:none; padding-top:2px; }
-  .group-top{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:8px; }
-  .group-cat{ flex:none; }
-  .group-why{ font-size:13px; color:var(--sub); line-height:1.45; flex:1 1 auto; }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
-
-  .result{
-    margin-top:14px; display:flex; gap:8px; align-items:flex-start;
-    background:#F5FAF8; border:1px dashed #BFDCD4; border-radius:10px; padding:9px 12px;
-    font-size:12.5px; color:#1D5B4E;
-  }
-  .result b{ color:#0F4A3E; }
-
-  .support{ max-width:940px; margin:10px auto 0; padding:0 20px; }
-  .support .pipeline-card{ background:#FBFBF9; }
-  .support-title{ font-family:'Sora',sans-serif; font-weight:700; font-size:16px; margin-bottom:12px; text-align:center; color:var(--ink); }
-
-  @media(max-width:640px){
-    .stage-head{ flex-direction:column; text-align:center; }
-    .stage-titlewrap{ text-align:center; }
-    .group-top{ flex-direction:column; }
-  }
-</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -85,11 +31,20 @@
 <main id="main">
   <div class="hero hero-sm">
     <div class="hero-inner">
-      <div class="eyebrow">SDLC · Software Development Lifecycle</div>
+      <div class="eyebrow">✦ SDLC · Software Development Lifecycle</div>
       <h1>El ciclo de vida del desarrollo de software en la era de IA</h1>
-      <p class="lead">Las 10 etapas, sus herramientas y el "por qué" de cada una — con la IA como capa transversal, no como una fase aislada.</p>
-      <div class="legend" id="legend"></div>
+      <p class="lead">Las 10 etapas del recorrido, de un vistazo. Toca cualquier etapa para saltar directo a sus herramientas y el "por qué" detrás de cada una.</p>
     </div>
+    <div class="journey-wrap">
+      <p class="journey-hint">Recorrido completo — haz clic en una etapa para ver el detalle ↓</p>
+      <div class="journey-scroll">
+        <div class="journey-track" id="journey"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:36px;">
+    <div class="legend" id="legend"></div>
   </div>
 
   <div class="pipeline" id="pipeline"></div>
@@ -138,7 +93,7 @@ function tool(name, isAI=false){ return {name, isAI}; }
 
 const stages = [
   {
-    num:1, title:"Descubrimiento", cat:"design",
+    num:1, title:"Descubrimiento", cat:"design", icon:"🔍",
     purpose:"Entender el problema real antes de proponer soluciones.",
     result:"Problem Statement validado con evidencia de que vale la pena resolverlo.",
     groups:[
@@ -153,7 +108,7 @@ const stages = [
     ]
   },
   {
-    num:2, title:"Definición y Requisitos", cat:"pm",
+    num:2, title:"Definición y Requisitos", cat:"pm", icon:"📝",
     purpose:"Traducir el problema en una solución concreta y accionable.",
     result:"PRD aprobado y backlog inicial priorizado.",
     groups:[
@@ -168,7 +123,7 @@ const stages = [
     ]
   },
   {
-    num:3, title:"Diseño", cat:"design",
+    num:3, title:"Diseño", cat:"design", icon:"🎨",
     purpose:"Definir cómo se verá y funcionará la solución.",
     result:"Diseños validados + arquitectura técnica documentada.",
     groups:[
@@ -183,7 +138,7 @@ const stages = [
     ]
   },
   {
-    num:4, title:"Planificación", cat:"pm",
+    num:4, title:"Planificación", cat:"pm", icon:"🗺️",
     purpose:"Organizar el trabajo en unidades ejecutables con tiempos y responsables.",
     result:"Roadmap y sprint plan con owners definidos.",
     groups:[
@@ -198,7 +153,7 @@ const stages = [
     ]
   },
   {
-    num:5, title:"Desarrollo (Build)", cat:"dev",
+    num:5, title:"Desarrollo (Build)", cat:"dev", icon:"💻",
     purpose:"Construir la solución según lo diseñado.",
     result:"Código funcional, revisado y mergeado.",
     groups:[
@@ -215,7 +170,7 @@ const stages = [
     ]
   },
   {
-    num:6, title:"Testing / QA", cat:"qa",
+    num:6, title:"Testing / QA", cat:"qa", icon:"🧪",
     purpose:"Validar que la solución funciona y no rompe nada existente.",
     result:"Software validado, bugs críticos resueltos, sign-off de calidad.",
     groups:[
@@ -232,7 +187,7 @@ const stages = [
     ]
   },
   {
-    num:7, title:"Despliegue (Deployment)", cat:"infra",
+    num:7, title:"Despliegue", cat:"infra", icon:"🚀",
     purpose:"Llevar la solución a producción de forma segura.",
     result:"Feature en producción, disponible para usuarios, sin incidentes.",
     groups:[
@@ -247,7 +202,7 @@ const stages = [
     ]
   },
   {
-    num:8, title:"Operación y Monitoreo", cat:"infra",
+    num:8, title:"Operación y Monitoreo", cat:"infra", icon:"📡",
     purpose:"Asegurar que el sistema funciona bien en el mundo real, de forma continua.",
     result:"Sistema estable, incidentes detectados y resueltos rápido.",
     groups:[
@@ -262,7 +217,7 @@ const stages = [
     ]
   },
   {
-    num:9, title:"Iteración y Mantenimiento", cat:"pm",
+    num:9, title:"Iteración y Mantenimiento", cat:"pm", icon:"🔁",
     purpose:"Mejorar continuamente basándose en datos reales de uso.",
     result:"Backlog actualizado con aprendizajes y mejoras planificadas.",
     groups:[
@@ -277,7 +232,7 @@ const stages = [
     ]
   },
   {
-    num:10, title:"Fin de vida / Deprecación", cat:"pm",
+    num:10, title:"Fin de vida", cat:"pm", icon:"🗄️",
     purpose:"Retirar funcionalidades o sistemas de forma ordenada.",
     result:"Retiro limpio, sin pérdida de datos ni impacto no planeado.",
     groups:[
@@ -322,11 +277,11 @@ function renderGroup(g){
 
 function renderStage(s){
   return `
-  <div class="stage">
+  <div class="stage" id="stage-${s.num}">
     <div class="stage-head">
       <div class="stage-num">${s.num}</div>
       <div class="stage-titlewrap">
-        <div class="stage-title">${s.title}</div>
+        <div class="stage-title">${s.icon} ${s.title}</div>
         <div class="stage-purpose">${s.purpose}</div>
       </div>
     </div>
@@ -350,9 +305,64 @@ document.getElementById('support').innerHTML = `
 document.getElementById('legend').innerHTML = Object.entries(CAT_LABEL).map(([k,v])=>`
   <div class="legend-item">
     <span class="legend-dot" style="background:var(--${
-      k==='pm'?'navy':k==='dev'?'teal':k==='ai'?'amber':k==='qa'?'violet':k==='infra'?'brick':'slateblue'
+      k==='pm'?'navy':k==='dev'?'teal':k==='ai'?'amber':k==='qa'?'violet':k==='infra'?'coral':'slateblue'
     })"></span>${v}
-  </div>`).join('') + `<div class="legend-item"><span style="color:#E8A33D;">✦</span>&nbsp;Herramienta con IA</div>`;
+  </div>`).join('') + `<div class="legend-item"><span style="color:#EFA53A;">✦</span>&nbsp;Herramienta con IA</div>`;
+
+/* ---------- Customer-journey strip: one node per stage, top tool icons, click-to-scroll ---------- */
+function topTools(stage, max=4){
+  const seen = new Set();
+  const out = [];
+  for(const g of stage.groups){
+    for(const t of g.tools){
+      if(seen.has(t.name)) continue;
+      seen.add(t.name);
+      out.push({...t, _cat:g.cat});
+      if(out.length>=max) return out;
+    }
+  }
+  return out;
+}
+
+function renderJourneyNode(s){
+  const tools = topTools(s);
+  return `
+  <button class="journey-node" data-stage="${s.num}" aria-label="Ir a la etapa ${s.num}: ${s.title}">
+    <span class="journey-dot">
+      <span class="journey-num">${s.num}</span>
+      <span aria-hidden="true">${s.icon}</span>
+    </span>
+    <span class="journey-label">${s.title}</span>
+    <span class="journey-tools">
+      ${tools.map(t=>`<span class="journey-tool-dot badge ${t._cat}" title="${t.name}">${initials(t.name)}</span>`).join('')}
+    </span>
+  </button>`;
+}
+
+document.getElementById('journey').innerHTML = stages.map(renderJourneyNode).join('');
+
+document.querySelectorAll('.journey-node').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const target = document.getElementById('stage-' + btn.dataset.stage);
+    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+const journeyNodes = Array.from(document.querySelectorAll('.journey-node'));
+function setActiveStage(num){
+  journeyNodes.forEach(n=> n.classList.toggle('active', n.dataset.stage === String(num)));
+}
+if('IntersectionObserver' in window){
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const num = entry.target.id.replace('stage-','');
+        setActiveStage(num);
+      }
+    });
+  }, { rootMargin:'-30% 0px -55% 0px', threshold:0 });
+  document.querySelectorAll('.stage[id^="stage-"]').forEach(el=>observer.observe(el));
+}
 </script>
 </body>
 </html>
