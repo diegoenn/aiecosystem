@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tools &amp; Models · AI Ecosystem</title>
+<meta name="description" content="Catálogo curado de modelos y herramientas de IA para desarrollo de software: coding agents, prototipado, investigación y observabilidad.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230B2540%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%23E8A33D%22 font-family=%22sans-serif%22>AI</text></svg>">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .tool-card{ background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-m); padding:22px 24px; box-shadow:var(--shadow-card); }
+  .tool-card-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
+  .tool-card h3{ font-size:17px; margin-bottom:4px; }
+  .tool-card > p{ font-size:14px; margin-bottom:14px; }
+  .status-pill{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; text-transform:uppercase;
+    padding:3px 9px; border-radius:20px; white-space:nowrap; flex:none;
+  }
+  .status-pill.use{ background:var(--teal-bg); color:var(--teal); }
+  .status-pill.eval{ background:var(--amber-bg); color:var(--amber); }
+  .status-pill.watch{ background:var(--line); color:var(--sub); }
+  .entry-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .entry-list li{ display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--sub); }
+  .entry-list .badge{ margin-top:1px; }
+  .entry-list b{ color:var(--ink); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AI</span>
+      AI Ecosystem <span style="color:#E8A33D;">/</span> SDLC
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="sdlc.html">SDLC</a></li>
+      <li><a href="tools.html" aria-current="page">AI Tools &amp; Models</a></li>
+      <li><a href="tutorials.html">Tutoriales</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="eyebrow">Catálogo en crecimiento</div>
+      <h1>AI Tools &amp; Models</h1>
+      <p class="lead">
+        Modelos, agentes y herramientas de IA que uso o evalúo activamente para desarrollo de software,
+        organizados por lo que realmente resuelven — no por hype.
+      </p>
+      <div class="legend">
+        <div class="legend-item"><span class="status-pill use">En uso</span></div>
+        <div class="legend-item"><span class="status-pill eval">Evaluando</span></div>
+        <div class="legend-item"><span class="status-pill watch">Por probar</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <div class="grid grid-2">
+
+        <div class="tool-card">
+          <div class="tool-card-head">
+            <div>
+              <h3>Modelos &amp; asistentes conversacionales</h3>
+            </div>
+            <span class="status-pill use">En uso</span>
+          </div>
+          <p>La base del resto del stack: razonamiento, redacción, síntesis de información y soporte de decisiones en cualquier etapa del SDLC.</p>
+          <ul class="entry-list">
+            <li><span class="badge ai">CL</span><span><b>Claude</b> (Anthropic) — mi modelo por defecto para razonamiento, redacción de PRDs, research y trabajo agéntico de código.</span></li>
+            <li><span class="badge ai">GP</span><span><b>ChatGPT / GPT</b> (OpenAI) — comparativa constante frente a Claude en tareas de producto y contenido.</span></li>
+            <li><span class="badge ai">GM</span><span><b>Gemini</b> (Google) — integración nativa con Google Workspace y contexto largo.</span></li>
+            <li><span class="badge ai">PX</span><span><b>Perplexity</b> — investigación con fuentes citadas, útil en la etapa de descubrimiento.</span></li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-head">
+            <div><h3>Coding agents &amp; IDEs</h3></div>
+            <span class="status-pill use">En uso</span>
+          </div>
+          <p>Donde la IA deja de sugerir y empieza a ejecutar: desde autocompletado hasta PRs autónomos de principio a fin.</p>
+          <ul class="entry-list">
+            <li><span class="badge ai">CC</span><span><b>Claude Code</b> — mi agente principal para tareas completas: desde exploración de código hasta commit y push.</span></li>
+            <li><span class="badge ai">GC</span><span><b>GitHub Copilot</b> — asistencia línea a línea dentro de VS Code.</span></li>
+            <li><span class="badge ai">CU</span><span><b>Cursor</b> — fork de VS Code con agente de IA nativo integrado al editor.</span></li>
+            <li><span class="badge ai">OC</span><span><b>OpenAI Codex</b> — agente de codificación de OpenAI, comparable a Claude Code.</span></li>
+            <li><span class="badge ai">AG</span><span><b>Antigravity</b> (Google/Gemini) — orquesta varios agentes en paralelo sobre un mismo proyecto.</span></li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-head">
+            <div><h3>Prototipado &amp; generación de UI</h3></div>
+            <span class="status-pill eval">Evaluando</span>
+          </div>
+          <p>De la idea a una interfaz funcional en minutos, para validar un flujo antes de invertir en desarrollo real.</p>
+          <ul class="entry-list">
+            <li><span class="badge ai">V0</span><span><b>v0</b> (Vercel) — genera componentes de UI en React a partir de descripciones o diseños.</span></li>
+            <li><span class="badge ai">LV</span><span><b>Lovable</b> — apps full-stack a partir de prompts, ideal para MVPs rápidos.</span></li>
+            <li><span class="badge ai">BN</span><span><b>Bolt.new</b> — entorno de desarrollo completo en el navegador, generado por IA.</span></li>
+            <li><span class="badge ai">CL</span><span><b>Claude (Artifacts)</b> — prototipos interactivos rápidos dentro de la misma conversación.</span></li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-head">
+            <div><h3>Investigación &amp; documentación</h3></div>
+            <span class="status-pill use">En uso</span>
+          </div>
+          <p>Convertir conversaciones, entrevistas y tickets en documentos estructurados: PRDs, retros, resúmenes.</p>
+          <ul class="entry-list">
+            <li><span class="badge ai">CL</span><span><b>Claude</b> — redacción de PRDs y síntesis de research con estructura clara.</span></li>
+            <li><span class="badge ai">NA</span><span><b>Notion AI</b> — asistencia directamente dentro de la base de conocimiento del equipo.</span></li>
+            <li><span class="badge ai">PX</span><span><b>Perplexity</b> — respuestas con fuentes verificables para research de mercado.</span></li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-head">
+            <div><h3>Testing &amp; QA asistido por IA</h3></div>
+            <span class="status-pill eval">Evaluando</span>
+          </div>
+          <p>Generar casos de prueba, incluyendo los edge cases que un humano bajo presión de tiempo podría no considerar.</p>
+          <ul class="entry-list">
+            <li><span class="badge ai">CL</span><span><b>Claude</b> — generación de casos de prueba unitarios y E2E a partir de la lógica de negocio.</span></li>
+            <li><span class="badge ai">GC</span><span><b>GitHub Copilot</b> — sugerencias de tests inline mientras se escribe el código.</span></li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-head">
+            <div><h3>Observabilidad de modelos IA</h3></div>
+            <span class="status-pill watch">Por probar</span>
+          </div>
+          <p>Cuando el producto en sí depende de un modelo, hay que monitorear algo más que uptime: drift, calidad de respuestas, costos.</p>
+          <ul class="entry-list">
+            <li><span class="badge ai">LS</span><span><b>LangSmith</b> — trazabilidad de llamadas a LLMs y evaluación de calidad.</span></li>
+            <li><span class="badge ai">WB</span><span><b>Weights &amp; Biases</b> — tracking de experimentos y evaluaciones de modelos.</span></li>
+            <li><span class="badge ai">AR</span><span><b>Arize</b> — monitoreo de drift y performance de modelos en producción.</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="card center" style="margin-top:36px;">
+        <h2 style="font-size:18px;">¿Falta algo que uses todos los días?</h2>
+        <p style="margin-bottom:0;">Este catálogo se actualiza a medida que pruebo herramientas nuevas. Si tienes una recomendación, escríbeme.</p>
+        <div class="btn-row" style="margin-top:16px;">
+          <a class="btn btn-outline" href="mailto:diegoenn@gmail.com">Sugerir una herramienta</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="brand" style="color:#fff;">
+      <span class="brand-mark">AI</span> AI Ecosystem / SDLC
+    </div>
+    <ul class="footer-links">
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="sdlc.html">SDLC</a></li>
+      <li><a href="tools.html">AI Tools &amp; Models</a></li>
+      <li><a href="tutorials.html">Tutoriales</a></li>
+      <li><a href="https://github.com/diegoenn/aiecosystem" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+  <div class="footer-note">Proyecto personal de Diego Enn · actualizado de forma continua · los distintivos de marca son representativos, no logotipos oficiales.</div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
